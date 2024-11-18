@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { UnemployementData } from "../@types/types";
 import "./styles.css";
 
@@ -13,15 +13,14 @@ interface BarProps {
     fontSize?: number;
 }
 
+
 const Bar: React.FC<BarProps> = ({ width, height, data, color = "green", x = 0, y = 0, svgHeight, fontSize = 10 }) => {
     const noData = data.value == null;
     const female = data.sex === "Females";
     const dynY = noData ? 1 : 0;
 
-
-
     const barAnimation = (offset: number = 0): JSX.Element => {
-        const animationDuration = height === 0 ? "0.1s" : "1s";
+        const animationDuration = height === 0 ? "0.1s" : "0.5s";
         return (
             <>
                 <animate
@@ -53,10 +52,8 @@ const Bar: React.FC<BarProps> = ({ width, height, data, color = "green", x = 0, 
                 fill={noData ? "grey" : female ? "#c5ad7a" : "#1e8d1e"}
                 stroke="black"
                 strokeWidth={1}
-                onMouseOver={
-                    () => console.log(data)
-                }
             >
+                <title>{`${data.value}%`}</title>
                 {/* Animation for bar */}
                 {barAnimation()}
             </rect>

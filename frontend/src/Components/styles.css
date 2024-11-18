@@ -10,3 +10,11 @@
 .barchart-text {
     fill: black;
 }
+
+.tooltip {
+    display: none;
+}
+
+.tooltip-on-hover:hover+.tooltip {
+    display: block;
+}
