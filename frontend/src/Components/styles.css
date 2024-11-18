@@ -1,0 +1,12 @@
+.barchart-line {
+    stroke-width: 1px;
+    stroke: black;
+}
+
+.bar-rect {
+    color: #1e8d1e;
+}
+
+.barchart-text {
+    fill: black;
+}

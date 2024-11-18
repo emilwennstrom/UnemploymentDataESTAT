@@ -1,0 +1,15 @@
+.content {
+  background-color: transparent;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-inline: auto;
+  width: fit-content;
+}
+
+.country-select {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 30px;
+  margin-top: 100px;
+}
