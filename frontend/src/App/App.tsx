@@ -7,6 +7,7 @@ import { CountryData } from '../@types/types';
 
 
 
+
 function App() {
 
   const width = 1000;

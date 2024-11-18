@@ -1,8 +1,11 @@
 import { UnemployementData, CountryData } from '../@types/types';
 
+
+const baseUrl = process.env.REACT_APP_BASE_URL;
+
 export const fetchUnemployementData = async (iso_code: string): Promise<UnemployementData[]> => {
 
-    const response = await fetch(`http://127.0.0.1:5000/get-data?iso_code=${iso_code}`);
+    const response = await fetch(`${baseUrl}/get-data?iso_code=${iso_code}`);
 
     if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -20,7 +23,7 @@ export const fetchUnemployementData = async (iso_code: string): Promise<Unemploy
 
 
 export const fetchCountryData = async (): Promise<CountryData[]> => {
-    const response = await fetch(`http://127.0.0.1:5000/get-iso-codes`)
+    const response = await fetch(`${baseUrl}/get-iso-codes`)
     if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
     }

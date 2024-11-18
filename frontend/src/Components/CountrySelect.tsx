@@ -20,7 +20,6 @@ const CountrySelect: React.FC<CountrySelectProps> = ({ onCountryChange }) => {
     const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
 
         const selectedIsoCode = event.target.value;
-        console.log(selectedIsoCode)
 
         const selectedCountry = countryData.find(
             (country) => country.iso_code === selectedIsoCode

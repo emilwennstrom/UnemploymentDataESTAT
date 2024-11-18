@@ -5,15 +5,14 @@ from flask import Flask, jsonify, request
 import pandas as pd
 from pandas import DataFrame
 from flask_cors import CORS
+from dotenv import load_dotenv
 
 app = Flask(__name__)
-#CORS(app, resources={r"/get_data": {"origins": "http://localhost:3000"}})
-
 CORS(app);
 
 
 file_path = "data.json"
-url = "https://webgate.ec.europa.eu/empl/redisstat/api/dissemination/sdmx/2.1/data/lmp_ind_actru?format=json&compressed=false"
+url = os.getenv("DATA_URL")
 
 if not os.path.exists(file_path):
     print(f"{file_path} not found. Downloading...")
@@ -74,9 +73,7 @@ def get_data():
     filtered_rows['value'] = filtered_rows['value'].astype(object).where(pd.notna(filtered_rows['value']), None)
     df_json = filtered_rows.to_dict(orient='records')
 
-    #print(df_json)
-
     return jsonify(df_json)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host="0.0.0.0", port=5000)
