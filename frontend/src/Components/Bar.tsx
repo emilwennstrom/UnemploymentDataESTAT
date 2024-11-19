@@ -25,7 +25,7 @@ const Bar: React.FC<BarProps> = ({ width, height, data, x = 0, y = 0, svgHeight,
     const noDataColor = "#696969";
 
     const barAnimation = (offset: number = 0): JSX.Element => {
-        const animationDuration = height === 0 ? "0.1s" : "0.5s";
+        const animationDuration = "0.5s";
         return (
             <>
                 <animate
@@ -60,7 +60,7 @@ const Bar: React.FC<BarProps> = ({ width, height, data, x = 0, y = 0, svgHeight,
                 <title>{`${data.value}%`}</title>
 
                 {/* Animation for bar */}
-                {barAnimation()}
+                {!noData && barAnimation()}
             </rect>
 
             {/* Label for genders*/}
@@ -72,7 +72,7 @@ const Bar: React.FC<BarProps> = ({ width, height, data, x = 0, y = 0, svgHeight,
                 fill="black"
             >
                 {/* Animations for text above bar */}
-                {barAnimation(5)}
+                {!noData && barAnimation(5)}
 
                 {/* Text above bar */}
                 {!noData ? data.sex.charAt(0) : female ? "N/A" : null}
