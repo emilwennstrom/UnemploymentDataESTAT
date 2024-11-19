@@ -6,20 +6,23 @@ interface BarProps {
     width: number;
     height: number;
     data: UnemployementData;
-    color?: string;
-    x?: number;
+    x: number;
     y?: number;
     svgHeight: number;
-    fontSize?: number;
+    fontSize: number;
 }
 
 
-const Bar: React.FC<BarProps> = ({ width, height, data, x = 0, y = 0, svgHeight, fontSize = 10 }) => {
+const Bar: React.FC<BarProps> = ({ width, height, data, x = 0, y = 0, svgHeight, fontSize }) => {
 
     const noData = data.value == null;
     const noDataOffset = noData ? 1 : 0;
 
     const female = data.sex === "Females";
+
+    const femaleColor = "#c5ad7a";
+    const maleColor = "#1e8d1e";
+    const noDataColor = "#696969";
 
     const barAnimation = (offset: number = 0): JSX.Element => {
         const animationDuration = height === 0 ? "0.1s" : "0.5s";
@@ -50,7 +53,7 @@ const Bar: React.FC<BarProps> = ({ width, height, data, x = 0, y = 0, svgHeight,
                 width={width}
                 y={svgHeight - noDataOffset}
                 x={x}
-                fill={noData ? "grey" : female ? "#c5ad7a" : "#1e8d1e"}
+                fill={noData ? noDataColor : female ? femaleColor : maleColor}
                 stroke="black"
                 strokeWidth={1}
             >

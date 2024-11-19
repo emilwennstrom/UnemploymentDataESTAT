@@ -5,9 +5,6 @@ import { useState } from 'react';
 import { CountryData } from '../@types/types';
 
 
-
-
-
 function App() {
 
   const width = 1000;
@@ -18,8 +15,6 @@ function App() {
   const handleCountryChange = (country: CountryData | null) => {
     setSelectedCountry(country);
   }
-
-
 
   return (
     <div className='content'>

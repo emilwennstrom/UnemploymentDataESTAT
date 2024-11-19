@@ -141,8 +141,8 @@ const BarChart: React.FC<BarChartProps> = ({
                         );
                     })}
                 </g>
-                {/* Bottom graph line */}
-                <line className="barchart-line" x1={xOffset} x2={xOffset} y1={height - yOffset}></line>
+                {/* Left vertical graph line */}
+                <line stroke='black' strokeWidth='1px' x1={xOffset} x2={xOffset} y1={height - yOffset}></line>
             </svg>
 
         </div>
