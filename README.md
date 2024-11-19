@@ -2,9 +2,10 @@ A simple React App using Typescript and a Python backend for fetching unemployem
 
 Run using docker-compose up --build or start both services individually with set .env for both backend and frontend
 
-<p>Environment variables:<p\>
+Environment variables:
 
-<p>Backend:<p\>
+Backend:
+
 DATA_URL = https://webgate.ec.europa.eu/empl/redisstat/api/dissemination/sdmx/2.1/data/lmp_ind_actru?format=json&compressed=false
 
 Frontend:
