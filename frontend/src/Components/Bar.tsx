@@ -18,7 +18,7 @@ const Bar: React.FC<BarProps> = ({ width, height, data, x = 0, y = 0, svgHeight,
     const noData = data.value == null;
     const noDataOffset = noData ? 1 : 0;
 
-    const female = data.sex === "Females";
+    const isFemale = data.sex === "Females";
 
     const femaleColor = "#c5ad7a";
     const maleColor = "#1e8d1e";
@@ -52,7 +52,7 @@ const Bar: React.FC<BarProps> = ({ width, height, data, x = 0, y = 0, svgHeight,
                 width={width}
                 y={svgHeight - noDataOffset}
                 x={x}
-                fill={noData ? noDataColor : female ? femaleColor : maleColor}
+                fill={noData ? noDataColor : isFemale ? femaleColor : maleColor}
                 stroke="black"
                 strokeWidth={1}
             >
@@ -65,7 +65,7 @@ const Bar: React.FC<BarProps> = ({ width, height, data, x = 0, y = 0, svgHeight,
 
             {/* Label for genders*/}
             <text
-                x={!noData ? (x + width / 2) : female ? (x + width) : (undefined)}
+                x={!noData ? (x + width / 2) : isFemale ? (x + width) : (undefined)}
                 y={svgHeight - height - noDataOffset - 5}
                 textAnchor="middle"
                 fontSize={fontSize}
@@ -75,7 +75,7 @@ const Bar: React.FC<BarProps> = ({ width, height, data, x = 0, y = 0, svgHeight,
                 {!noData && barAnimation(5)}
 
                 {/* Text above bar */}
-                {!noData ? data.sex.charAt(0) : female ? "N/A" : null}
+                {!noData ? data.sex.charAt(0) : isFemale ? "N/A" : null}
             </text>
         </React.Fragment>
     );
