@@ -1,11 +1,11 @@
 import React from "react";
-import { UnemployementData } from "../@types/types";
+import { UnemploymentData } from "../@types/types";
 import "./styles.css";
 
 interface BarProps {
     width: number;
     height: number;
-    data: UnemployementData;
+    data: UnemploymentData;
     x: number;
     y?: number;
     svgHeight: number;
@@ -49,7 +49,6 @@ const Bar: React.FC<BarProps> = ({ width, height, data, x = 0, y = 0, svgHeight,
     return (
         <React.Fragment>
             <rect
-                className="bar-rect"
                 width={width}
                 y={svgHeight - noDataOffset}
                 x={x}
@@ -66,7 +65,6 @@ const Bar: React.FC<BarProps> = ({ width, height, data, x = 0, y = 0, svgHeight,
 
             {/* Label for genders*/}
             <text
-                className="bar-text"
                 x={!noData ? (x + width / 2) : female ? (x + width) : (undefined)}
                 y={svgHeight - height - noDataOffset - 5}
                 textAnchor="middle"

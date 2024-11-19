@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import Bar from './Bar';
 import "./styles.css";
-import { UnemployementData } from '../@types/types';
-import { fetchUnemployementData } from '../Network/Requests';
+import { UnemploymentData } from '../@types/types';
+import { fetchUnemploymentData } from '../Network/Requests';
 
 interface BarChartProps {
     width: number;
@@ -15,7 +15,7 @@ const BarChart: React.FC<BarChartProps> = ({
     height,
     iso_code
 }) => {
-    const [data, setData] = useState<UnemployementData[]>([]);
+    const [data, setData] = useState<UnemploymentData[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [forceAnimations, setForceAnimations] = useState<number>(Date.now());
 
@@ -28,7 +28,7 @@ const BarChart: React.FC<BarChartProps> = ({
             }
             try {
                 setLoading(true);
-                const unemployementData = await fetchUnemployementData(iso_code)
+                const unemployementData = await fetchUnemploymentData(iso_code)
                 setData(unemployementData);
                 setForceAnimations(Date.now());
             } catch (error) {

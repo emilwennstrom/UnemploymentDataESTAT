@@ -1,9 +1,9 @@
-import { UnemployementData, CountryData } from '../@types/types';
+import { UnemploymentData, CountryData } from '../@types/types';
 
 
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
-export const fetchUnemployementData = async (iso_code: string): Promise<UnemployementData[]> => {
+export const fetchUnemploymentData = async (iso_code: string): Promise<UnemploymentData[]> => {
 
     const response = await fetch(`${baseUrl}/get-data?iso_code=${iso_code}`);
 
@@ -12,7 +12,7 @@ export const fetchUnemployementData = async (iso_code: string): Promise<Unemploy
     }
 
     const result = await response.json();
-    const transformedData: UnemployementData[] = result.map((item: any) => ({
+    const transformedData: UnemploymentData[] = result.map((item: any) => ({
         sex: item["Sex"],
         time_period: item["Time period"],
         value: item.value

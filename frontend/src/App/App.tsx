@@ -21,13 +21,11 @@ function App() {
       <div className='country-select'>
 
         <div>
-          {selectedCountry && (
-            `Unemployement data for ${selectedCountry?.country}`
-          )}
-
-
-
+          {selectedCountry
+            ? `Unemployment data | ${selectedCountry.country}`
+            : "Please select a county"}
         </div>
+
         <CountrySelect onCountryChange={handleCountryChange}></CountrySelect>
       </div>
       <BarChart width={width} height={height} iso_code={selectedCountry ? selectedCountry.iso_code : null}></BarChart>

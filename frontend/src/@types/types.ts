@@ -1,4 +1,4 @@
-export interface UnemployementData {
+export interface UnemploymentData {
     sex: string;
     time_period: string;
     value: number;
