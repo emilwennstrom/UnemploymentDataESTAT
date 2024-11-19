@@ -8,11 +8,19 @@ interface CountrySelectProps {
 
 const CountrySelect: React.FC<CountrySelectProps> = ({ onCountryChange }) => {
     const [countryData, setCountryData] = useState<CountryData[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
         const fetchData = async () => {
-            const fetchedData = await fetchCountryData();
-            setCountryData(fetchedData);
+            try {
+                setLoading(true);
+                const fetchedData = await fetchCountryData();
+                setCountryData(fetchedData);
+            } catch (error) {
+                console.error("Error fetching ISO-Codes", error);
+            } finally {
+                setLoading(false);
+            }
         };
         fetchData();
     }, []);
@@ -34,14 +42,17 @@ const CountrySelect: React.FC<CountrySelectProps> = ({ onCountryChange }) => {
 
     return (
         <React.Fragment>
-            <select onChange={handleSelectChange}>
-                <option value="">Select a country</option>
-                {countryData.map((value, index) => (
-                    <option key={index} value={value.iso_code}>
-                        {value.iso_code}
-                    </option>
-                ))}
-            </select>
+            {!loading && (
+                <select onChange={handleSelectChange}>
+                    <option>Select a country</option>
+                    {countryData.map((value, index) => (
+                        <option key={index} value={value.iso_code}>
+                            {value.iso_code}
+                        </option>
+                    ))}
+                </select>
+            )}
+
         </React.Fragment>
     );
 };

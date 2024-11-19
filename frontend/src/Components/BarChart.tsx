@@ -52,7 +52,7 @@ const BarChart: React.FC<BarChartProps> = ({
         }));
     };
 
-    const calculateBarChartHeight = (dataLength: number) => {
+    const calculateBarChartHeight = (dataLength: number): number => {
         const maxValue = dataLength > 0 ? Math.max(...data.map(item => item.value)) : 0;
         const lines = Math.ceil(maxValue / 10);
         let minLines = lines < 4 ? 4 : lines + 1;
@@ -63,27 +63,23 @@ const BarChart: React.FC<BarChartProps> = ({
     const barChartHeight = calculateBarChartHeight(data.length);
     const horizontalLines = calculateHorizontalLines(barChartHeight, height);
 
-
-
+    const fontSize = 12
     const xOffset = width / 30;
-    width = width + xOffset
     const yOffset = 15;
+    let lastTimePeriod: string | null = null;
+
+    width = width + xOffset
+
     let barWidth = (width) / (data.length + 2)
     const barSpacing = barWidth / 2
     barWidth = barWidth - barSpacing / 2
+
     let spacing = barSpacing;
-
-    let lastTimePeriod: string | null = null;
-    const fontSize = 12
-
-
-
-
 
     return (
         <div>
             <svg key={forceAnimations} width={width} height={height}>
-                {/* Lines for % values */}
+                {/* Lines and text for % values */}
                 {horizontalLines.map((line, index) => (
                     <React.Fragment key={index}>
                         <line
@@ -102,10 +98,7 @@ const BarChart: React.FC<BarChartProps> = ({
                                 fontSize={fontSize}
                             >{index * 10 + '%'}</text>
                         }
-
-
                     </React.Fragment>
-
                 ))}
 
                 {/* Render Bars and timePeriod text */}
@@ -113,6 +106,7 @@ const BarChart: React.FC<BarChartProps> = ({
                     {data.map((value, index) => {
                         const barHeight = loading ? 0 : (value.value / barChartHeight) * height;
 
+                        /* No spacing between bars if time periods are the same */
                         if (lastTimePeriod === null) {
                             lastTimePeriod = value.time_period;
                         } else if (value.time_period !== lastTimePeriod) {
@@ -147,7 +141,7 @@ const BarChart: React.FC<BarChartProps> = ({
                         );
                     })}
                 </g>
-
+                {/* Bottom graph line */}
                 <line className="barchart-line" x1={xOffset} x2={xOffset} y1={height - yOffset}></line>
             </svg>
 
