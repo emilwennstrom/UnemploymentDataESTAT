@@ -126,7 +126,7 @@ const BarChart: React.FC<BarChartProps> = ({
                                 />
 
                                 {/* Render timeperiod text for every other data point */}
-                                {value.sex === "Females" && (
+                                {value.sex === "F" && (
                                     <text
                                         x={index * barWidth + spacing + barWidth + xOffset}
                                         y={height}

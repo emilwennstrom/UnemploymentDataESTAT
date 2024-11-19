@@ -18,7 +18,7 @@ const Bar: React.FC<BarProps> = ({ width, height, data, x = 0, y = 0, svgHeight,
     const noData = data.value == null;
     const noDataOffset = noData ? 1 : 0;
 
-    const isFemale = data.sex === "Females";
+    const isFemale = data.sex === "F";
 
     const femaleColor = "#c5ad7a";
     const maleColor = "#1e8d1e";

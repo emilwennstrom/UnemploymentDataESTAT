@@ -70,6 +70,11 @@ def get_data():
     filtered_rows = df[filter]
     filtered_rows = filtered_rows[['Sex', 'Time period', 'value']]
     filtered_rows = filtered_rows.sort_values(by=['Time period', 'Sex'], ascending = True)
+
+    filtered_rows['Sex'] = filtered_rows['Sex'].map({'Males': 'M', 'Females': 'F'})
+    filtered_rows = filtered_rows.rename(columns={'Sex': 'sex', 'Time period': 'time_period'})
+
+
     filtered_rows['value'] = filtered_rows['value'].astype(object).where(pd.notna(filtered_rows['value']), None)
     df_json = filtered_rows.to_dict(orient='records')
 

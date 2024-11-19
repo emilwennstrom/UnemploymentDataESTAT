@@ -12,13 +12,8 @@ export const fetchUnemploymentData = async (iso_code: string): Promise<Unemploym
     }
 
     const result = await response.json();
-    const transformedData: UnemploymentData[] = result.map((item: any) => ({
-        sex: item["Sex"],
-        time_period: item["Time period"],
-        value: item.value
-    }));
 
-    return transformedData;
+    return result;
 }
 
 
