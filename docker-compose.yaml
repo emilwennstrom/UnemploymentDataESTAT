@@ -8,13 +8,21 @@ services:
     environment:
       - REACT_APP_BASE_URL=localhost:5000
     depends_on:
-      - backend-py
+      #- backend-py
+      - backend-java
 
-  backend-py:
+  #  backend-py:
+  #    build:
+  #      context: ./backend-py
+  #      dockerfile: Dockerfile
+  #    ports:
+  #      - "5000:5000"
+  #    environment:
+  #      - DATA_URL=https://webgate.ec.europa.eu/empl/redisstat/api/dissemination/sdmx/2.1/data/lmp_ind_actru?format=json&compressed=false
+
+  backend-java:
     build:
-      context: ./backend-py
+      context: ./backend-java
       dockerfile: Dockerfile
     ports:
       - "5000:5000"
-    environment:
-      - DATA_URL=https://webgate.ec.europa.eu/empl/redisstat/api/dissemination/sdmx/2.1/data/lmp_ind_actru?format=json&compressed=false
