@@ -63,9 +63,8 @@ public class DataService {
 
             System.out.println("Response Code: " + response.statusCode());
 
-            String content = response.body().replaceAll(Pattern.quote("+0200"), "+02:00");
-
             if (response.statusCode() == 200) {
+                String content = response.body().replaceAll(Pattern.quote("+0200"), "+02:00");
                 DatasetBuildable datasetBuildable = objectMapper.readValue(content, DatasetBuildable.class);
                 this.dataset = datasetBuildable.build();
                 System.out.println("Dataset successfully loaded.");
@@ -86,6 +85,9 @@ public class DataService {
     public ArrayList<CountryData> getCountryDataList() {
         while (notLoaded()) {
             fetchData(timeout);
+            if (timeout > 30) {
+                return null;
+            }
         }
 
         ArrayList<CountryData> countryData = new ArrayList<>();
@@ -107,6 +109,9 @@ public class DataService {
 
         while (notLoaded()) {
             fetchData(timeout);
+            if (timeout > 30) {
+                return null;
+            }
         }
 
         String[] genders = { "M", "F" };
