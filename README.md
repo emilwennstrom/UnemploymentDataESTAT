@@ -1,8 +1,8 @@
-A simple React App using Typescript and a Python backend for fetching unemployement data from ESTAT.
+A simple React App using Typescript and a Python or Java backend for fetching unemployement data from ESTAT.
 
-Run using (sudo) docker-compose up --build or start both services individually with setting .env files for both backend and frontend.
+Run using (sudo) docker-compose up --build (only python) or start both services individually with setting .env files for both backend and frontend. java env is hardcoded.
 
-Frontend running on localhost:3000 and backend on localhost:5000.
+Frontend running on localhost:3000 and backend on localhost:5000 (python) or 5002 (java).
 
 Environment variables:
 
