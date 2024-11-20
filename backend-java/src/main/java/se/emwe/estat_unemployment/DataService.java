@@ -1,6 +1,6 @@
 package se.emwe.estat_unemployment;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
+//import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.guava.GuavaModule;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
@@ -31,8 +31,10 @@ public class DataService {
     private final HttpClient httpClient;
     private final ObjectMapper objectMapper;
     private Dataset dataset = null;
+    private int timeout;
 
     public DataService() {
+        this.timeout = 10;
         this.httpClient = HttpClient.newHttpClient();
         this.objectMapper = new ObjectMapper();
         this.objectMapper.registerModule(new JsonStatModule());
@@ -40,17 +42,19 @@ public class DataService {
         this.objectMapper.registerModule(new Jdk8Module());
         this.objectMapper.registerModule(new JavaTimeModule());
 
-        this.objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        this.objectMapper.configure(DeserializationFeature.FAIL_ON_INVALID_SUBTYPE, false);
+        // this.objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,
+        // false);
+        // this.objectMapper.configure(DeserializationFeature.FAIL_ON_INVALID_SUBTYPE,
+        // false);
 
-        fetchData();
+        // fetchData(timeout);
     }
 
-    private void fetchData() {
+    private void fetchData(int timeout) {
         try {
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(new URI(ESTAT.DATA_URL))
-                    .timeout(Duration.ofSeconds(10))
+                    .timeout(Duration.ofSeconds(timeout))
                     .GET()
                     .build();
 
@@ -65,21 +69,24 @@ public class DataService {
                 DatasetBuildable datasetBuildable = objectMapper.readValue(content, DatasetBuildable.class);
                 this.dataset = datasetBuildable.build();
                 System.out.println("Dataset successfully loaded.");
+                timeout = 10;
             } else {
                 System.err.println("Failed to fetch data. HTTP Status: " + response.statusCode());
+                timeout += 10;
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public boolean notLoaded() {
+    private boolean notLoaded() {
         return dataset == null;
     }
 
-
     public ArrayList<CountryData> getCountryDataList() {
-        if (notLoaded()) return null;
+        while (notLoaded()) {
+            fetchData(timeout);
+        }
 
         ArrayList<CountryData> countryData = new ArrayList<>();
 
@@ -96,22 +103,23 @@ public class DataService {
 
     }
 
-
     public ArrayList<UnemploymentData> getUnemploymentData(String isoCode) {
 
-        if (notLoaded()) return null;
+        while (notLoaded()) {
+            fetchData(timeout);
+        }
 
-        String[] genders = {"M", "F"};
+        String[] genders = { "M", "F" };
         ArrayList<UnemploymentData> unemploymentData = new ArrayList<>();
         Map<List<String>, Number> dataMap = dataset.asMap();
 
         for (String gender : genders) {
             dataMap.entrySet().stream()
-                    .filter(entry -> entry.getKey().get(2).equals("TOTAL"))     // 2 is the index for AGE
-                    .filter(entry -> entry.getKey().get(3).equals(gender))         // 3 is the index for SEX
-                    .filter(entry -> entry.getKey().get(4).equals("REG_UNE"))   // 4 is the index for REGIS_ES
-                    .filter(entry -> entry.getKey().get(5).equals("TOT2_7"))    // 5 is the index for LMP_TYPE
-                    .filter(entry -> entry.getKey().get(6).equals(isoCode))        // 6 is the index for GEO
+                    .filter(entry -> entry.getKey().get(2).equals("TOTAL")) // 2 is the index for AGE
+                    .filter(entry -> entry.getKey().get(3).equals(gender)) // 3 is the index for SEX
+                    .filter(entry -> entry.getKey().get(4).equals("REG_UNE")) // 4 is the index for REGIS_ES
+                    .filter(entry -> entry.getKey().get(5).equals("TOT2_7")) // 5 is the index for LMP_TYPE
+                    .filter(entry -> entry.getKey().get(6).equals(isoCode)) // 6 is the index for GEO
                     .forEach(entry -> {
                         String sex = entry.getKey().get(3);
                         String timePeriod = entry.getKey().get(7);

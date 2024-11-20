@@ -42,16 +42,19 @@ const CountrySelect: React.FC<CountrySelectProps> = ({ onCountryChange }) => {
 
     return (
         <React.Fragment>
-            {!loading && (
-                <select onChange={handleSelectChange}>
-                    <option>Select a country</option>
-                    {countryData.map((value, index) => (
-                        <option key={index} value={value.iso_code}>
-                            {value.iso_code}
-                        </option>
+            {!loading ? (
+                <select onChange={handleSelectChange} defaultValue="">
+                    <option value="" disabled>
+                        Select a country
+                    </option>
+                    {countryData.map((value) => (
+                        <option key={value.iso_code} value={value.iso_code}>{value.iso_code}</option>
                     ))}
                 </select>
+            ) : (
+                <div>Loading...</div>
             )}
+
 
         </React.Fragment>
     );
