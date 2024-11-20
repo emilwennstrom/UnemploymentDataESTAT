@@ -17,4 +17,6 @@ Frontend:
 REACT_APP_BASE_URL = Adress for backend, eg: localhost:5000
 
 
-![alt text](http://url/to/img.png)
+![Estonia](https://github.com/emilwennstrom/UnemploymentDataESTAT/blob/main/img/es.png)
+
+![Sweden](https://github.com/emilwennstrom/UnemploymentDataESTAT/blob/main/img/se.png)
