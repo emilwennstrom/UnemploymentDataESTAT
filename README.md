@@ -8,13 +8,16 @@ Frontend running on localhost:3000 and backend on localhost:5000
 
 Environment variables:
 
-Backend:
+ - Backend:
 
-DATA_URL = https://webgate.ec.europa.eu/empl/redisstat/api/dissemination/sdmx/2.1/data/lmp_ind_actru?format=json&compressed=false
+   - DATA_URL = https://webgate.ec.europa.eu/empl/redisstat/api/dissemination/sdmx/2.1/data/lmp_ind_actru?format=json&compressed=false
 
-Frontend:
+ - Frontend:
 
-REACT_APP_BASE_URL = Adress for backend, eg: localhost:5000
+   - REACT_APP_BASE_URL = Adress for backend, eg: localhost:5000
+
+
+Samples:
 
 
 ![Estonia](https://github.com/emilwennstrom/UnemploymentDataESTAT/blob/main/img/es.png)
