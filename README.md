@@ -1,8 +1,10 @@
 A simple React App using Typescript and a Python or Java backend for fetching unemployement data from ESTAT.
 
-Run using (sudo) docker-compose up --build (only python) or start both services individually with setting .env files for both backend and frontend. java env is hardcoded.
+Run using (sudo) docker-compose up --build or start both services individually with setting .env files for both backend and frontend. java env is hardcoded.
 
-Frontend running on localhost:3000 and backend on localhost:5000 (python) or 5002 (java).
+Alter the comments in docker-compose what backend you want to run.
+
+Frontend running on localhost:3000 and backend on localhost:5000
 
 Environment variables:
 
@@ -13,3 +15,6 @@ DATA_URL = https://webgate.ec.europa.eu/empl/redisstat/api/dissemination/sdmx/2.
 Frontend:
 
 REACT_APP_BASE_URL = Adress for backend, eg: localhost:5000
+
+
+![alt text](http://url/to/img.png)
