@@ -8,11 +8,11 @@ services:
     environment:
       - REACT_APP_BASE_URL=localhost:5000
     depends_on:
-      - backend
+      - backend-py
 
-  backend:
+  backend-py:
     build:
-      context: ./backend
+      context: ./backend-py
       dockerfile: Dockerfile
     ports:
       - "5000:5000"
