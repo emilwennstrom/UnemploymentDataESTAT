@@ -102,13 +102,10 @@ public class DataService {
         if (notLoaded()) return null;
 
         String[] genders = {"M", "F"};
-
         ArrayList<UnemploymentData> unemploymentData = new ArrayList<>();
-
         Map<List<String>, Number> dataMap = dataset.asMap();
 
         for (String gender : genders) {
-            System.out.println("Data for: " + gender);
             dataMap.entrySet().stream()
                     .filter(entry -> entry.getKey().get(2).equals("TOTAL"))     // 2 is the index for AGE
                     .filter(entry -> entry.getKey().get(3).equals(gender))         // 3 is the index for SEX
@@ -117,8 +114,8 @@ public class DataService {
                     .filter(entry -> entry.getKey().get(6).equals(isoCode))        // 6 is the index for GEO
                     .forEach(entry -> {
                         String sex = entry.getKey().get(3);
-                        Number value = entry.getValue();
                         String timePeriod = entry.getKey().get(7);
+                        Number value = entry.getValue();
 
                         unemploymentData.add(new UnemploymentData(sex, timePeriod, value));
                     });
