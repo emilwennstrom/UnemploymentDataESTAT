@@ -10,7 +10,8 @@ from dotenv import load_dotenv
 app = Flask(__name__)
 CORS(app);
 
-
+# should download when calling get_iso_codes()
+# shouldnt save file in api directory, but does during dev for not spamming server
 file_path = "data.json"
 url = os.getenv("DATA_URL")
 
