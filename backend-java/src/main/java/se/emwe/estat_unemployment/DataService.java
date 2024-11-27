@@ -107,12 +107,9 @@ public class DataService {
 
     public ArrayList<UnemploymentData> getUnemploymentData(String isoCode) {
 
-        while (notLoaded()) {
-            fetchData(timeout);
-            if (timeout > 30) {
-                return null;
-            }
-        }
+        // should never happen
+        if (notLoaded())
+            return null;
 
         String[] genders = { "M", "F" };
         ArrayList<UnemploymentData> unemploymentData = new ArrayList<>();
@@ -125,6 +122,8 @@ public class DataService {
                     .filter(entry -> entry.getKey().get(4).equals("REG_UNE")) // 4 is the index for REGIS_ES
                     .filter(entry -> entry.getKey().get(5).equals("TOT2_7")) // 5 is the index for LMP_TYPE
                     .filter(entry -> entry.getKey().get(6).equals(isoCode)) // 6 is the index for GEO
+                    // .filter(entry -> entry.getKey().get(7).equals("2007") // 7 is time period,
+                    // leave out for all time period data
                     .forEach(entry -> {
                         String sex = entry.getKey().get(3);
                         String timePeriod = entry.getKey().get(7);
